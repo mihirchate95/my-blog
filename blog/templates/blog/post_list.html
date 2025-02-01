@@ -1,39 +1,14 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <title>Django App blog</title>
-    </head>
-    <body>
-        <header>
-            <h1><a href="/">Django App Blog</a></h1>
-        </header>
+{% extends 'blog/base.html' %}
 
-
-        <!-- <article>
-            <time>published: 14.06.2014, 12:14</time>
-            <h2><a href="">My first post</a></h2>
-            <p>Life often presents itself as a whirlwind of moments, big and small. As we navigate through these experiences, it's the seemingly mundane aspects that often hold the most profound joys.</p>
+{% block content %}
+    {% for post in posts %}
+        <article class="post">
+            <time class="date">
+                {{ post.published_date }}
+            </time>
+            <!-- <h2><a href="">{{ post.title }}</a></h2> -->
+            <h2><a href="{% url 'post_detail' pk=post.pk %}">{{ post.title }}</a></h2>
+            <p>{{ post.text|linebreaksbr }}</p>
         </article>
-
-        <article>
-            <time>published: 14.06.2014, 12:14</time>
-            <h2><a href="">My second post</a></h2>
-            <p>It's easy to get caught up in the pursuit of grand achievements and milestones. However, true happiness often lies in appreciating the ordinary. It's about finding contentment in the present moment and recognizing the value of what we already have.</p>
-        </article> -->
-
-        <!-- {{ posts }} -->
-
-        <!-- {% for post in posts %}
-            {{ post }}
-        {% endfor %} -->
-
-        {% for post in posts %}
-            <article>
-                <time>published: {{ post.published_date }}</time>
-                <h2><a href="">{{ post.title }}</a></h2>
-                <p>{{ post.text|linebreaksbr }}</p>
-            </article>
-        {% endfor %}                
-
-    </body>
-</html>
+    {% endfor %}
+{% endblock %}
